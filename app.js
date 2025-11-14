@@ -76,7 +76,8 @@ if (window.location.pathname.includes("index.html")) {
         }
 
         saveToken(res.token);
-        window.location = "dashboard.html";
+        window.location.href = "/dashboard.html";
+
     });
 }
 
@@ -236,3 +237,4 @@ async function loadAttendance() {
 if (window.location.pathname.includes("dashboard.html")) {
     document.addEventListener("DOMContentLoaded", loadAttendance);
 }
+
