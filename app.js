@@ -125,6 +125,14 @@ if (window.location.pathname.includes("index.html")) {
 
   if (!username || !password) return;
 
+ <script>
+document.getElementById("loginBtn").addEventListener("click", async () => {
+
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!username || !password) return;
+
   const btn = document.getElementById("loginBtn");
   const loader = document.getElementById("loader");
 
@@ -133,14 +141,35 @@ if (window.location.pathname.includes("index.html")) {
   loader.style.display = "block";
 
   try {
-    const res = await fetch("https://web-production-d582e.up.railway.app", {
+    const res = await fetch("https://web-production-d582e.up.railway.app/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        txt_uname: username,
-        txt_pwd: password
+        username: username,
+        password: password
       })
     });
+
+    const data = await res.json();
+
+    // Backend returns { ok: true }
+    if (data.ok) {
+      localStorage.setItem("token", data.token);
+      window.location.href = window.location.origin + "/dashboard";
+    } else {
+      document.getElementById("loginError").classList.remove("d-none");
+    }
+
+  } catch (err) {
+    document.getElementById("loginError").classList.remove("d-none");
+  }
+
+  loader.style.display = "none";
+  btn.disabled = false;
+  btn.innerText = "Login";
+});
+</script>
+
 
     const data = await res.json();
 
@@ -477,6 +506,7 @@ async function loadAttendance() {
 if (window.location.pathname.includes("dashboard.html")) {
     document.addEventListener("DOMContentLoaded", loadAttendance);
 }
+
 
 
 
