@@ -96,7 +96,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   loader.style.display = "block";
 
   try {
-    const res = await fetch("https://samvidha-backend.onrender.com/login", {
+    const res = await fetch("https://web-production-d582e.up.railway.app/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })
@@ -126,3 +126,4 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
 </body>
 </html>
+
