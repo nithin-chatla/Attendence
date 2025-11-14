@@ -142,13 +142,14 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
   try {
     const res = await fetch("https://web-production-d582e.up.railway.app/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
         username: username,
         password: password
-      })
-    });
+    })
+});
+
 
     const data = await res.json();
 
@@ -506,6 +507,7 @@ async function loadAttendance() {
 if (window.location.pathname.includes("dashboard.html")) {
     document.addEventListener("DOMContentLoaded", loadAttendance);
 }
+
 
 
 
