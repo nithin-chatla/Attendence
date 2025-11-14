@@ -1,12 +1,6 @@
 {
-  "builds": [
-    { "src": "*.html", "use": "@vercel/static" },
-    { "src": "*.js",   "use": "@vercel/static" },
-    { "src": "*.css",  "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/dashboard",       "dest": "/dashboard.html" },
-    { "src": "/dashboard.html",  "dest": "/dashboard.html" },
-    { "src": "/",                "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" }
   ]
 }
