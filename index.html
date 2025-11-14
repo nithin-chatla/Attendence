@@ -57,7 +57,12 @@ body {
     <p id="loginError" class="text-danger mt-2 text-center d-none">Invalid credentials</p>
   </form>
 </div>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();  // <---- VERY IMPORTANT
+                                                          </script>
 
 <script src="app.js"></script>
 </body>
 </html>
+
