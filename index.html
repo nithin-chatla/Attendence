@@ -39,6 +39,21 @@ body {
   outline: none;
   background: rgba(255,255,255,0.12);
 }
+
+/* LOADER */
+.loader {
+  width: 26px;
+  height: 26px;
+  border: 3px solid rgba(255,255,255,0.4);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none;
+  margin: 0 auto;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 </style>
 </head>
 <body>
@@ -46,7 +61,6 @@ body {
 <div class="glass-card">
   <h2 class="text-center mb-4 font-bold">Samvidha Login</h2>
 
-  <!-- FIXED: removed action, added onsubmit prevent -->
   <form id="loginForm" onsubmit="return false;">
 
     <label class="mb-1">Username</label>
@@ -55,10 +69,14 @@ body {
     <label class="mb-1">Password</label>
     <input type="password" id="password" class="form-control input-box mb-3" required>
 
-    <!-- FIXED: button type="button" so form does NOT auto-submit -->
-    <button type="button" id="loginBtn" class="btn btn-light w-100 mt-3">Login</button>
+    <button type="button" id="loginBtn" class="btn btn-light w-100 mt-3">
+      Login
+    </button>
 
-    <p id="loginError" class="text-danger mt-2 text-center d-none">Invalid credentials</p>
+    <!-- Loader -->
+    <div id="loader" class="loader mt-3"></div>
+
+    <p id="loginError" class="text-danger mt-3 text-center d-none">Invalid credentials</p>
   </form>
 </div>
 
@@ -70,7 +88,13 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
   if (!username || !password) return;
 
-  // Call backend
+  // UI Changes (Show Loader + Disable Button)
+  const btn = document.getElementById("loginBtn");
+  const loader = document.getElementById("loader");
+  btn.disabled = true;
+  btn.innerText = "Please wait...";
+  loader.style.display = "block";
+
   try {
     const res = await fetch("https://samvidha-backend.onrender.com/login", {
       method: "POST",
@@ -83,7 +107,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     if (data.success) {
       localStorage.setItem("token", data.token);
 
-      // FIXED REDIRECT (ABSOLUTE PATH)
+      // Redirect
       window.location.href = window.location.origin + "/dashboard";
     } else {
       document.getElementById("loginError").classList.remove("d-none");
@@ -92,6 +116,11 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   } catch (err) {
     document.getElementById("loginError").classList.remove("d-none");
   }
+
+  // Hide loader and restore button if login fails
+  loader.style.display = "none";
+  btn.disabled = false;
+  btn.innerText = "Login";
 });
 </script>
 
