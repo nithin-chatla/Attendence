@@ -133,7 +133,7 @@ if (window.location.pathname.includes("index.html")) {
   loader.style.display = "block";
 
   try {
-    const res = await fetch("https://web-production-d582e.up.railway.app/login", {
+    const res = await fetch("https://web-production-d582e.up.railway.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -477,6 +477,7 @@ async function loadAttendance() {
 if (window.location.pathname.includes("dashboard.html")) {
     document.addEventListener("DOMContentLoaded", loadAttendance);
 }
+
 
 
 
